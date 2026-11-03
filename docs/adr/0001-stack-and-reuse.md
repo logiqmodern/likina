@@ -46,3 +46,13 @@
 | Схема за творби/поръчки, `pricing.ts` за магазина | 1 |
 | Шаблони на имейлите за поръчки (BG/EN) | 1/6 |
 | Шаблонни пренасочвания от WordPress | 8 |
+
+## Среди (03.11.2026)
+
+| Ресурс | Стойност |
+|---|---|
+| Vercel | екип „Enjoy Wien“, проект `likina` (`prj_QRmNdcgbOjEShhyKMuaoUjYkHdk1`), Node 22, регион fra1, Vercel Authentication за `*.vercel.app` |
+| Neon | организация на Тони, проект `likina` (`wild-sun-72371394`), Postgres 17, aws-eu-central-1, лимит 1 GB на клон (безплатен план) |
+| Env на Vercel | `DATABASE_URL` (pooled), `DATABASE_URL_UNPOOLED`, `SESSION_SECRET`, `ADMIN_SETUP_TOKEN` (еднократен), `CRON_SECRET`, `STUDIO_NOTIFY_EMAIL`, `EMAIL_REPLY_TO` |
+
+Снимките са в базата: 327 изображения като WebP ≈ 100–150 MB — в рамките на 1 GB. При растеж: Vercel Blob или платен Neon план.
