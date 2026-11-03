@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
+import { PageHeader } from "@/components/admin/forms";
 import { Panel } from "@/components/admin/ui";
 import { requireAdmin } from "@/server/admin/auth";
 
 export const metadata: Metadata = { title: "Табло" };
 
 // Phase 0 placeholder: the shop dashboard (new orders, pending shipments,
-// failed payments, inquiries) arrives with the orders in Phase 1/7.
+// failed payments, inquiries) arrives with the orders.
 export default async function DashboardPage() {
   await requireAdmin();
   return (
-    <Panel title="Табло">
-      <p className="text-[15px] text-muted">Тук ще са новите поръчки, чакащите изпращане и запитванията.</p>
-    </Panel>
+    <>
+      <PageHeader title="Добре дошли" description="Тук ще виждате новите поръчки, чакащите изпращане и запитванията." />
+      <Panel className="p-5">
+        <p className="text-[15px] text-ink-2">Творбите и поръчките се появяват тук след импорта от стария сайт.</p>
+      </Panel>
+    </>
   );
 }
