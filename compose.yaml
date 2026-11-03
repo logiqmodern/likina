@@ -1,0 +1,70 @@
+# Production / staging app stack on the VPS (docs/RUNBOOK.md).
+# One copy per environment, e.g. /srv/lejish/production and /srv/lejish/staging,
+# each with its own .env. Images come from GHCR; `build:` is a local fallback.
+# TLS and routing for both environments: one shared Caddy in deploy/edge.
+
+name: lejish-${DEPLOY_ENV:-production}
+
+x-app-env: &app-env
+  env_file: .env
+  restart: unless-stopped
+
+services:
+  postgres:
+    # Same major version as Neon (18), so its dump restores here.
+    image: postgres:18-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB}
+      TZ: UTC
+    volumes:
+      # Postgres 18 images keep data under /var/lib/postgresql/18/docker → mount the parent.
+      - pgdata18:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    # No published ports: Postgres is reachable only inside this network.
+
+  migrate:
+    image: ghcr.io/logiqmodern/reducta-new-worker:${IMAGE_TAG:-latest}
+    build: { context: ., target: worker }
+    env_file: .env
+    # Migrations, then the one-time content corrections (scripts/one-time.ts; never re-inserts deleted rows).
+    # A failed correction is logged but never blocks the deploy.
+    command: ["sh", "-c", "node dist/scripts/migrate.mjs && { node dist/scripts/one-time.mjs || echo '[one-time] failed, deploy continues'; }"]
+    depends_on:
+      postgres: { condition: service_healthy }
+    restart: "no"
+
+  app:
+    <<: *app-env
+    image: ghcr.io/logiqmodern/reducta-new-app:${IMAGE_TAG:-latest}
+    build: { context: ., target: app }
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+    networks:
+      default: {}
+      edge:
+        # The edge Caddy reaches this app as app-production:3000 / app-staging:3000.
+        aliases: ["app-${DEPLOY_ENV:-production}"]
+
+  worker:
+    <<: *app-env
+    image: ghcr.io/logiqmodern/reducta-new-worker:${IMAGE_TAG:-latest}
+    build: { context: ., target: worker }
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+
+volumes:
+  pgdata18:
+
+networks:
+  # Shared with the edge Caddy stack (deploy/edge). Create once on the VPS:
+  #   docker network create edge
+  edge:
+    external: true
+    name: edge
