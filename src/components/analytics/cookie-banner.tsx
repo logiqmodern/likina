@@ -181,7 +181,7 @@ export function CookieBanner({ aboveBottomBar = false }: { aboveBottomBar?: bool
     >
       <div
         ref={panelRef}
-        className="pointer-events-auto mx-auto max-h-[calc(100dvh-var(--bottom-bar-h)-16px)] max-w-[1120px] overflow-y-auto rounded-[20px] border border-line bg-white p-4 shadow-[0_-4px_30px_rgba(43,26,38,0.16)] lg:max-h-[calc(100dvh-48px)] lg:p-6"
+        className="pointer-events-auto mx-auto max-h-[calc(100dvh-var(--bottom-bar-h)-16px)] max-w-[1120px] overflow-y-auto rounded-[20px] border border-line bg-white p-4 shadow-[0_-4px_30px_rgba(42,31,26,0.16)] lg:max-h-[calc(100dvh-48px)] lg:p-6"
       >
         {view === "summary" ? (
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between lg:gap-8">
@@ -220,7 +220,7 @@ export function CookieBanner({ aboveBottomBar = false }: { aboveBottomBar?: bool
                   type="button"
                   onClick={close}
                   aria-label="Затвори настройките за бисквитки"
-                  className="-mr-2 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-ink hover:bg-blush-100"
+                  className="-mr-2 -mt-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-ink hover:bg-tint-100"
                 >
                   <IconClose size={22} />
                 </button>

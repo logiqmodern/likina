@@ -50,7 +50,7 @@ async function Users() {
           <h3 id="h-users" className="text-[17px] font-extrabold">
             Профили ({users.length})
           </h3>
-          <ul className="flex flex-col divide-y divide-[#F1EBEF]">
+          <ul className="flex flex-col divide-y divide-[#F1ECE4]">
             {users.map((u) => {
               const isMe = u.id === me.id;
               const canManage = !isMe && manageable.includes(u.role);
@@ -60,12 +60,12 @@ async function Users() {
                   <div className="flex min-w-0 flex-col gap-1">
                     <span className="flex flex-wrap items-center gap-2">
                       <span className="text-[16px] font-extrabold">{u.name}</span>
-                      {isMe ? <span className={`${CHIP} bg-blush-100 text-ink`}>Ти</span> : null}
-                      <span className={`${CHIP} bg-[#EEEAED] text-ink-2`}>{ROLE_LABELS[u.role]}</span>
+                      {isMe ? <span className={`${CHIP} bg-tint-100 text-ink`}>Ти</span> : null}
+                      <span className={`${CHIP} bg-[#EEE9E2] text-ink-2`}>{ROLE_LABELS[u.role]}</span>
                       {u.isActive ? (
                         <span className={`${CHIP} bg-[#E3F2EA] text-[#1F5E3F]`}>Активен</span>
                       ) : (
-                        <span className={`${CHIP} border border-dashed border-[#B9AEB5] bg-white text-ink-2`}>Деактивиран</span>
+                        <span className={`${CHIP} border border-dashed border-[#B8AEA3] bg-white text-ink-2`}>Деактивиран</span>
                       )}
                       {u.totpEnabled ? (
                         <span className={`${CHIP} bg-[#E3F2EA] text-[#1F5E3F]`}>2FA: включен</span>
@@ -104,12 +104,12 @@ async function Users() {
             {invites.length === 0 ? (
               <p className="text-[15px] text-muted">Няма покани, които чакат.</p>
             ) : (
-              <ul className="flex flex-col divide-y divide-[#F1EBEF]">
+              <ul className="flex flex-col divide-y divide-[#F1ECE4]">
                 {invites.map((i) => (
                   <li key={i.id} className="flex flex-col gap-1.5 py-3 first:pt-0 last:pb-0">
                     <span className="flex flex-wrap items-center gap-2">
                       <span className="text-[15px] font-bold">{i.name}</span>
-                      <span className={`${CHIP} bg-[#EEEAED] text-ink-2`}>{ROLE_LABELS[i.role]}</span>
+                      <span className={`${CHIP} bg-[#EEE9E2] text-ink-2`}>{ROLE_LABELS[i.role]}</span>
                     </span>
                     <span className="break-all text-[14px] text-ink-2">{i.email}</span>
                     <span className="text-[13px] text-muted">

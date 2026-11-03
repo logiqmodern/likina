@@ -3,18 +3,18 @@ import type { ReactNode } from "react";
 
 /*
  * Shared e-mail frame. Colours = docs/DESIGN.md tokens; never white text on
- * the brand pink (buttons are pink with ink text). Inline styles only — e-mail
+ * the brand gold (buttons are gold with ink text). Inline styles only — e-mail
  * clients ignore stylesheets. System font stack (web fonts are unreliable in mail).
  */
 
 export const C = {
-  bg: "#FFFBFD",
-  blush50: "#FDF3F8",
-  pink: "#E8A1D1",
-  ink: "#2B1A26",
-  ink2: "#4A3743",
-  muted: "#6E5A68",
-  line: "#F0DEE9",
+  bg: "#FBF9F5",
+  tint50: "#F7F2EA",
+  accent: "#E2B866",
+  ink: "#2A1F1A",
+  ink2: "#4A3D35",
+  muted: "#6F6258",
+  line: "#ECE4D8",
   white: "#FFFFFF",
 } as const;
 
@@ -90,7 +90,7 @@ export function Paragraphs({ items }: { items: string[] }) {
 
 export function Details({ rows }: { rows: Array<{ label: string; value: ReactNode }> }) {
   return (
-    <Section style={{ backgroundColor: C.blush50, borderRadius: "12px", padding: "12px 16px", margin: "4px 0 18px" }}>
+    <Section style={{ backgroundColor: C.tint50, borderRadius: "12px", padding: "12px 16px", margin: "4px 0 18px" }}>
       <table role="presentation" width="100%" cellPadding={0} cellSpacing={0} style={{ borderCollapse: "collapse" }}>
         <tbody>
           {rows.map((r) => (
@@ -116,9 +116,9 @@ export function ButtonLink({ href, children, variant = "primary" }: { href: stri
       href={href}
       style={{
         display: "inline-block",
-        backgroundColor: primary ? C.pink : C.white,
+        backgroundColor: primary ? C.accent : C.white,
         color: C.ink,
-        border: `1.5px solid ${primary ? C.pink : C.ink}`,
+        border: `1.5px solid ${primary ? C.accent : C.ink}`,
         borderRadius: "999px",
         padding: "12px 22px",
         fontSize: "16px",

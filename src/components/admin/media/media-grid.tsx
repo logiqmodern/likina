@@ -31,7 +31,7 @@ export function MediaGrid({ items }: { items: MediaGridItem[] }) {
 function MediaCard({ item }: { item: MediaGridItem }) {
   const [editing, setEditing] = useState(false);
   return (
-    <li className="flex flex-col gap-3 rounded-2xl border border-[#ECE6EA] bg-white p-3 shadow-[0_1px_2px_rgba(43,26,38,0.04)]">
+    <li className="flex flex-col gap-3 rounded-2xl border border-[#E9E3DA] bg-white p-3 shadow-[0_1px_2px_rgba(42,31,26,0.04)]">
       <a href={`/media/${item.id}`} target="_blank" rel="noopener" className="block" aria-label={`Отвори „${item.alt}“ в пълен размер`}>
         <MediaThumb item={item} className="aspect-[4/3] w-full" sizes="(min-width: 1536px) 22vw, (min-width: 1280px) 30vw, (min-width: 640px) 45vw, 92vw" />
       </a>

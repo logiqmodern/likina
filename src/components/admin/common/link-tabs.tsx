@@ -14,21 +14,21 @@ export function LinkTabs({
 }) {
   return (
     <nav aria-label={label} className="-mx-3 overflow-x-auto px-3 sm:mx-0 sm:px-0">
-      <ul className="flex w-max gap-1.5 rounded-2xl border border-[#ECE6EA] bg-white p-1.5">
+      <ul className="flex w-max gap-1.5 rounded-2xl border border-[#E9E3DA] bg-white p-1.5">
         {tabs.map((t) => (
           <li key={t.href}>
             <Link
               href={t.href}
               aria-current={t.current ? "page" : undefined}
               className={`flex min-h-11 items-center gap-2 whitespace-nowrap rounded-xl px-3.5 text-[15px] font-bold ${
-                t.current ? "bg-ink text-white" : "text-ink-2 hover:bg-blush-50"
+                t.current ? "bg-ink text-white" : "text-ink-2 hover:bg-tint-50"
               }`}
             >
               {t.label}
               {t.count !== undefined ? (
                 <span
                   className={`rounded-full px-2 py-px text-xs font-extrabold tabular-nums ${
-                    t.current ? "bg-white/20 text-white" : "bg-[#F1EBEF] text-ink"
+                    t.current ? "bg-white/20 text-white" : "bg-[#F1ECE4] text-ink"
                   }`}
                 >
                   {t.count}

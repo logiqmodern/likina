@@ -314,7 +314,7 @@ export function Sheet({
             <button
               type="button"
               onClick={onClose}
-              className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[#F1EBEF]"
+              className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-[#F1ECE4]"
               aria-label="Затвори"
             >
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8">
@@ -346,5 +346,5 @@ export function PageHeader({ title, description, actions }: { title: string; des
 }
 
 export function EmptyState({ children }: { children: ReactNode }) {
-  return <p className="rounded-2xl border border-dashed border-[#E2D6DE] px-4 py-8 text-center text-[15px] text-muted">{children}</p>;
+  return <p className="rounded-2xl border border-dashed border-[#E2D8CA] px-4 py-8 text-center text-[15px] text-muted">{children}</p>;
 }

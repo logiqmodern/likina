@@ -31,7 +31,7 @@ export function InquiryStatusButtons({ id, status }: { id: string; status: Statu
                 value={s.status}
                 aria-pressed={current}
                 className={`min-h-11 rounded-xl px-3.5 text-sm font-bold ${
-                  current ? "bg-ink text-white" : "border-[1.5px] border-ink bg-white text-ink hover:bg-blush-50"
+                  current ? "bg-ink text-white" : "border-[1.5px] border-ink bg-white text-ink hover:bg-tint-50"
                 } disabled:opacity-60`}
               >
                 {s.label}

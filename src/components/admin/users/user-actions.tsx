@@ -27,7 +27,7 @@ function ConfirmAction({
   return (
     <div className="flex flex-col gap-2">
       {confirming ? (
-        <div className="flex flex-col gap-2 rounded-xl bg-[#F7F5F6] p-3">
+        <div className="flex flex-col gap-2 rounded-xl bg-[#F7F4EF] p-3">
           <p className="text-[15px] font-semibold">{question}</p>
           <div className="flex flex-wrap gap-2">
             <Button

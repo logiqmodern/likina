@@ -63,16 +63,16 @@ export function Pagination({
 }
 
 function PageLink({ href, children, ...rest }: { href: string | null; children: React.ReactNode; "aria-label": string }) {
-  const cls = "flex size-11 items-center justify-center rounded-xl border border-[#ECE6EA] bg-white text-sm font-bold";
+  const cls = "flex size-11 items-center justify-center rounded-xl border border-[#E9E3DA] bg-white text-sm font-bold";
   if (!href) {
     return (
-      <span className={`${cls} text-[#B9A9B4]`} aria-disabled="true" {...rest}>
+      <span className={`${cls} text-[#B8A99A]`} aria-disabled="true" {...rest}>
         {children}
       </span>
     );
   }
   return (
-    <Link href={href} className={`${cls} hover:bg-blush-50`} {...rest}>
+    <Link href={href} className={`${cls} hover:bg-tint-50`} {...rest}>
       {children}
     </Link>
   );

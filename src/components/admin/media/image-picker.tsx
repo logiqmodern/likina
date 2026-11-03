@@ -19,7 +19,7 @@ function useLibrary(media: MediaOption[]) {
 
 export function MediaThumb({ item, sizes = "96px", className = "" }: { item: MediaOption; sizes?: string; className?: string }) {
   return (
-    <span className={`relative block overflow-hidden rounded-xl bg-[#F1EBEF] ${className}`}>
+    <span className={`relative block overflow-hidden rounded-xl bg-[#F1ECE4] ${className}`}>
       <Image src={mediaSrc(item.id)} alt={item.alt} fill sizes={sizes} className="object-cover" />
     </span>
   );
@@ -55,7 +55,7 @@ export function ImagePickerSheet({
     <Sheet open={open} onClose={onClose} title={title} wide>
       <div className="flex flex-col gap-4">
         {showUpload ? (
-          <div className="rounded-2xl border border-[#ECE6EA] p-3">
+          <div className="rounded-2xl border border-[#E9E3DA] p-3">
             <UploadQueue
               multiple={false}
               onUploaded={(item) => {
@@ -77,7 +77,7 @@ export function ImagePickerSheet({
         )}
 
         {available.length === 0 ? (
-          <p className="rounded-2xl border border-dashed border-[#E2D6DE] px-4 py-6 text-center text-[15px] text-muted">
+          <p className="rounded-2xl border border-dashed border-[#E2D8CA] px-4 py-6 text-center text-[15px] text-muted">
             Медията е празна. Качи първата снимка.
           </p>
         ) : (
@@ -91,7 +91,7 @@ export function ImagePickerSheet({
                     onClick={() => onSelect(m)}
                     aria-pressed={selected}
                     className={`flex w-full flex-col gap-1.5 rounded-2xl border-2 p-1.5 text-left hover:border-ink ${
-                      selected ? "border-ink bg-blush-50" : "border-transparent"
+                      selected ? "border-ink bg-tint-50" : "border-transparent"
                     }`}
                   >
                     <MediaThumb item={m} className="aspect-square w-full" sizes="(min-width: 640px) 200px, 45vw" />
@@ -137,11 +137,11 @@ export function ImagePickerField({
       <span id={`${id}-label`} className="field-label">
         {label}
       </span>
-      <div className="flex items-center gap-3 rounded-xl border-[1.5px] border-[#E2D6DE] bg-white p-2.5">
+      <div className="flex items-center gap-3 rounded-xl border-[1.5px] border-[#E2D8CA] bg-white p-2.5">
         {selected ? (
           <MediaThumb item={selected} className="size-20 shrink-0" sizes="80px" />
         ) : (
-          <span className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-[#F1EBEF] text-[12px] text-muted">
+          <span className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-[#F1ECE4] text-[12px] text-muted">
             {value ? "Няма я" : "Без снимка"}
           </span>
         )}

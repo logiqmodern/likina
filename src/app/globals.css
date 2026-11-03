@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /*
- * Design system — mirrors docs/DESIGN.md (approved canvas, direction A).
- * Light theme only in v1 (docs/PROMPT.md §7).
+ * Design tokens. Provisional Likina palette (warm neutrals + gold accent);
+ * the gallery design direction is chosen in Phase 2. Light theme only.
  */
 
 /* ── Fonts: Manrope variable, self-hosted (OFL, public/fonts/Manrope-OFL.txt) ── */
@@ -25,35 +25,36 @@
 }
 
 :root {
-  --bg: #fffbfd;
-  --blush-50: #fdf3f8;
-  --blush-100: #f9e6f1;
-  --blush-200: #f6cde4;
-  --blush-300: #f2c4e0;
-  --pink: #e8a1d1; /* brand; button background with ink text (8.6:1) — never white text on it */
-  --pink-600: #d987bf;
-  --ink: #2b1a26;
-  --ink-2: #4a3743;
-  --muted: #6e5a68;
-  --line: #f0dee9;
-  --on-dark-muted: #d9c6d1;
+  /* Likina — warm gallery neutrals + gold accent (provisional until the design phase, OPEN-QUESTIONS Q1). */
+  --bg: #fbf9f5;
+  --tint-50: #f7f2ea;
+  --tint-100: #efe7da;
+  --tint-200: #f1ddb0;
+  --tint-300: #e8cf95;
+  --accent: #e2b866; /* gold; button background with ink text (≈ 9:1) — never white text on it */
+  --accent-600: #c99a3e;
+  --ink: #2a1f1a;
+  --ink-2: #4a3d35;
+  --muted: #6f6258;
+  --line: #ece4d8;
+  --on-dark-muted: #d8ccbf;
   --success: #2f7d57;
   --warning-bg: #fff4d6;
   --warning-border: #b08a00;
   --warning-text: #6b5200;
   --error: #b42318;
-  --shadow-card: 0 1px 2px rgba(43, 26, 38, 0.04), 0 10px 30px rgba(43, 26, 38, 0.06);
+  --shadow-card: 0 1px 2px rgba(42, 31, 26, 0.04), 0 10px 30px rgba(42, 31, 26, 0.06);
   --bottom-bar-h: 72px;
 }
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-blush-50: var(--blush-50);
-  --color-blush-100: var(--blush-100);
-  --color-blush-200: var(--blush-200);
-  --color-blush-300: var(--blush-300);
-  --color-pink: var(--pink);
-  --color-pink-600: var(--pink-600);
+  --color-tint-50: var(--tint-50);
+  --color-tint-100: var(--tint-100);
+  --color-tint-200: var(--tint-200);
+  --color-tint-300: var(--tint-300);
+  --color-accent: var(--accent);
+  --color-accent-600: var(--accent-600);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);
   --color-muted: var(--muted);
@@ -162,9 +163,9 @@
       line-height: 1.6;
     }
   }
-  /* Heading emphasis marker (never pink text on light backgrounds) */
+  /* Heading emphasis marker (never gold text on light backgrounds) */
   .mark {
-    background: var(--blush-200);
+    background: var(--tint-200);
     border-radius: 8px;
     padding: 0 6px;
     -webkit-box-decoration-break: clone;
@@ -173,7 +174,7 @@
   .link {
     font-weight: 700;
     text-decoration: underline;
-    text-decoration-color: var(--pink);
+    text-decoration-color: var(--accent);
     text-decoration-thickness: 2px;
     text-underline-offset: 3px;
   }
@@ -203,11 +204,11 @@
     font-size: 17px;
   }
   .btn-primary {
-    background: var(--pink);
+    background: var(--accent);
     color: var(--ink);
   }
   .btn-primary:hover {
-    background: var(--pink-600);
+    background: var(--accent-600);
   }
   .btn-secondary {
     border: 1.5px solid var(--ink);
@@ -215,7 +216,7 @@
     font-weight: 700;
   }
   .btn-secondary:hover {
-    background: var(--blush-100);
+    background: var(--tint-100);
   }
   .btn-dark {
     background: var(--ink);
@@ -248,7 +249,7 @@
     font-size: 12px;
     font-weight: 800;
     line-height: 1.3;
-    background: var(--blush-100);
+    background: var(--tint-100);
     color: var(--ink);
   }
   .todo-chip {
@@ -273,7 +274,7 @@
   .field-input {
     width: 100%;
     min-height: 48px;
-    border: 1.5px solid #d9c6d1;
+    border: 1.5px solid #D8CCBF;
     border-radius: 12px;
     background: #fff;
     padding: 10px 14px;
@@ -283,7 +284,7 @@
   .field-input:focus-visible {
     outline: none;
     border-color: var(--ink);
-    box-shadow: 0 0 0 3px var(--blush-200);
+    box-shadow: 0 0 0 3px var(--tint-200);
   }
   .field-input[aria-invalid="true"] {
     border-color: var(--error);

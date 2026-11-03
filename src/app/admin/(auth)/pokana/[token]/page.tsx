@@ -55,7 +55,7 @@ async function Invite({ params }: Props) {
         </h1>
         <p className="text-[15px] text-ink-2">Избери парола за своя профил в админ панела. Никой друг не я знае.</p>
       </div>
-      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1.5 rounded-xl bg-[#F7F5F6] px-4 py-3 text-[15px]">
+      <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-1.5 rounded-xl bg-[#F7F4EF] px-4 py-3 text-[15px]">
         <dt className="font-semibold text-muted">Имейл</dt>
         <dd className="break-all font-bold">{invite.email}</dd>
         <dt className="font-semibold text-muted">Роля</dt>

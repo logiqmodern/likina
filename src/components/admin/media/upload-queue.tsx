@@ -17,7 +17,7 @@ interface QueueItem {
   fieldErrors?: Record<string, string>;
 }
 
-const ALT_HELP = "Какво има на снимката — чете се от незрящи потребители и от Google. Напр. „Кушетка с апарат в студиото“.";
+const ALT_HELP = "Какво има на снимката — чете се от незрящи потребители и от Google. Напр. „Икона на Св. Богородица Умиление в златна рамка“.";
 
 /**
  * Pick one or more images, describe each (alt text is required) and upload
@@ -139,7 +139,7 @@ export function UploadQueue({
           multiple={multiple}
           onChange={(e) => addFiles(e.target.files)}
           aria-describedby={`${inputId}-help`}
-          className="block w-full min-h-11 rounded-xl border-[1.5px] border-dashed border-[#D9C6D1] bg-white px-3 py-2.5 text-[16px] file:mr-3 file:min-h-10 file:rounded-xl file:border-0 file:bg-ink file:px-4 file:font-bold file:text-white"
+          className="block w-full min-h-11 rounded-xl border-[1.5px] border-dashed border-[#D8CCBF] bg-white px-3 py-2.5 text-[16px] file:mr-3 file:min-h-10 file:rounded-xl file:border-0 file:bg-ink file:px-4 file:font-bold file:text-white"
         />
         <p id={`${inputId}-help`} className="field-help">
           JPG, PNG, WebP или HEIC до {MAX_UPLOAD_MB} MB. Снимките се оптимизират автоматично, а данните за място и
@@ -164,7 +164,7 @@ export function UploadQueue({
           {items.map((item) => (
             <li
               key={item.key}
-              className="flex flex-col gap-3 rounded-2xl border border-[#ECE6EA] bg-[#FBFAFA] p-3 sm:flex-row"
+              className="flex flex-col gap-3 rounded-2xl border border-[#E9E3DA] bg-[#FBFAF7] p-3 sm:flex-row"
               onKeyDown={(e) => {
                 // Enter in a field uploads this image (and never submits a surrounding editor form).
                 if (e.key === "Enter" && (e.target as HTMLElement).tagName === "INPUT") {

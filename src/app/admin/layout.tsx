@@ -25,5 +25,5 @@ export const instant = false;
 
 export default async function AdminRootLayout({ children }: LayoutProps<"/admin">) {
   await connection();
-  return <div className="flex min-h-dvh flex-1 flex-col bg-[#F7F5F6] text-ink">{children}</div>;
+  return <div className="flex min-h-dvh flex-1 flex-col bg-[#F7F4EF] text-ink">{children}</div>;
 }

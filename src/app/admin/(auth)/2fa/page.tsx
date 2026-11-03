@@ -32,7 +32,7 @@ async function MfaStep() {
         </p>
       </div>
       <MfaForm />
-      <div className="flex items-center justify-between gap-3 border-t border-[#ECE6EA] pt-4 text-sm text-muted">
+      <div className="flex items-center justify-between gap-3 border-t border-[#E9E3DA] pt-4 text-sm text-muted">
         <span>
           Влизаш като <strong className="text-ink">{ctx.user.email}</strong>
         </span>

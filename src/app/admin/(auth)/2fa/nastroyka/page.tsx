@@ -50,7 +50,7 @@ async function TotpSetup() {
     type: "svg",
     margin: 1,
     errorCorrectionLevel: "M",
-    color: { dark: "#2B1A26", light: "#FFFFFF" },
+    color: { dark: "#2A1F1A", light: "#FFFFFF" },
   });
   const required = MFA_REQUIRED_ROLES.includes(ctx.user.role);
 
@@ -77,7 +77,7 @@ async function TotpSetup() {
           <div
             role="img"
             aria-label="QR код за добавяне на профила в приложението за удостоверяване"
-            className="size-48 self-center rounded-xl border border-[#ECE6EA] bg-white p-2 [&>svg]:size-full"
+            className="size-48 self-center rounded-xl border border-[#E9E3DA] bg-white p-2 [&>svg]:size-full"
             dangerouslySetInnerHTML={{ __html: qrSvg }}
           />
           <span className="text-sm text-muted">
@@ -89,7 +89,7 @@ async function TotpSetup() {
           </span>
           <code
             aria-label="Ключ за ръчно въвеждане"
-            className="select-all break-all rounded-xl bg-[#F7F5F6] px-3 py-2 text-center font-mono text-[15px] font-bold tracking-wider"
+            className="select-all break-all rounded-xl bg-[#F7F4EF] px-3 py-2 text-center font-mono text-[15px] font-bold tracking-wider"
           >
             {formatSecretForDisplay(pending.secret)}
           </code>
@@ -99,7 +99,7 @@ async function TotpSetup() {
 
       <TotpSetupForm />
 
-      <div className="flex items-center justify-between gap-3 border-t border-[#ECE6EA] pt-4 text-sm text-muted">
+      <div className="flex items-center justify-between gap-3 border-t border-[#E9E3DA] pt-4 text-sm text-muted">
         <span>
           Профил: <strong className="text-ink">{ctx.user.email}</strong>
         </span>

@@ -89,7 +89,7 @@ async function Inquiries({ searchParams }: { searchParams: SearchParams }) {
                       href={href({ status: statusSlug, vid: t.value })}
                       aria-current={current ? "page" : undefined}
                       className={`flex min-h-11 items-center whitespace-nowrap rounded-full border px-3.5 text-sm font-bold ${
-                        current ? "border-ink bg-blush-100 text-ink" : "border-[#E2D6DE] bg-white text-ink-2 hover:bg-blush-50"
+                        current ? "border-ink bg-tint-100 text-ink" : "border-[#E2D8CA] bg-white text-ink-2 hover:bg-tint-50"
                       }`}
                     >
                       {t.label}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Logo } from "@/components/site/logo";
 import { Suspense } from "react";
 import { AdminRoleProvider } from "@/components/admin/role-context";
 import { getDb } from "@/db/client";
@@ -35,13 +36,13 @@ async function PanelShell({ children }: { children: React.ReactNode }) {
         Към съдържанието
       </a>
 
-      <aside className="sticky top-0 hidden h-dvh w-[248px] shrink-0 flex-col gap-[18px] overflow-y-auto border-r border-[#ECE6EA] bg-white px-3.5 py-4 lg:flex">
+      <aside className="sticky top-0 hidden h-dvh w-[248px] shrink-0 flex-col gap-[18px] overflow-y-auto border-r border-[#E9E3DA] bg-white px-3.5 py-4 lg:flex">
         <ShellBrand />
         <SidebarNav keys={keys} inquiryCount={inquiryCount} />
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-3 border-b border-[#ECE6EA] bg-white px-4 lg:h-16 lg:px-7">
+        <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-3 border-b border-[#E9E3DA] bg-white px-4 lg:h-16 lg:px-7">
           <span className="lg:hidden">
             <BrandMark />
           </span>
@@ -68,10 +69,9 @@ async function PanelShell({ children }: { children: React.ReactNode }) {
 function BrandMark() {
   return (
     <Link href="/admin" aria-label="Админ табло" className="flex h-11 items-center">
-      <svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" focusable="false">
-        <path d="M7 1C7 6 9 9 13 11C9 13 7 16 7 21C7 16 5 13 1 11C5 9 7 6 7 1Z" fill="#E8A1D1" />
-        <path d="M17 1C17 6 19 9 23 11C19 13 17 16 17 21C17 16 15 13 11 11C15 9 17 6 17 1Z" fill="#D987BF" />
-        <path d="M27 1C27 6 29 9 33 11C29 13 27 16 27 21C27 16 25 13 21 11C25 9 27 6 27 1Z" fill="#E8A1D1" />
+      <svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <rect width="64" height="64" rx="14" fill="#2A1F1A" />
+        <path d="M22 14h8v28h16v8H22z" fill="#E2B866" />
       </svg>
     </Link>
   );
@@ -80,16 +80,8 @@ function BrandMark() {
 function ShellBrand() {
   return (
     <div className="flex h-10 items-center justify-between gap-2 px-1.5">
-      <Link href="/admin" aria-label="Лежиш и Отслабваш — админ табло" className="flex items-center gap-2 text-ink no-underline">
-        <svg width="34" height="22" viewBox="0 0 34 22" aria-hidden="true" focusable="false">
-          <path d="M7 1C7 6 9 9 13 11C9 13 7 16 7 21C7 16 5 13 1 11C5 9 7 6 7 1Z" fill="#E8A1D1" />
-          <path d="M17 1C17 6 19 9 23 11C19 13 17 16 17 21C17 16 15 13 11 11C15 9 17 6 17 1Z" fill="#D987BF" />
-          <path d="M27 1C27 6 29 9 33 11C29 13 27 16 27 21C27 16 25 13 21 11C25 9 27 6 27 1Z" fill="#E8A1D1" />
-        </svg>
-        <span className="flex flex-col leading-none">
-          <span className="text-[11px] font-semibold tracking-[0.04em]">Лежиш и</span>
-          <span className="text-[15px] font-extrabold tracking-[0.07em]">ОТСЛАБВАШ</span>
-        </span>
+      <Link href="/admin" aria-label="Likina — админ табло" className="flex items-center gap-2 text-ink no-underline">
+        <Logo />
       </Link>
       <span className="rounded-md bg-ink px-[7px] py-[3px] text-[11px] font-extrabold uppercase tracking-[0.08em] text-white">
         Админ
@@ -101,11 +93,11 @@ function ShellBrand() {
 function ShellSkeleton() {
   return (
     <div className="flex min-h-dvh flex-1" aria-busy="true">
-      <aside className="hidden w-[248px] shrink-0 border-r border-[#ECE6EA] bg-white px-3.5 py-4 lg:block">
+      <aside className="hidden w-[248px] shrink-0 border-r border-[#E9E3DA] bg-white px-3.5 py-4 lg:block">
         <ShellBrand />
       </aside>
       <div className="flex flex-1 flex-col">
-        <div className="h-14 border-b border-[#ECE6EA] bg-white lg:h-16" />
+        <div className="h-14 border-b border-[#E9E3DA] bg-white lg:h-16" />
         <p className="sr-only" role="status">
           Зареждане…
         </p>

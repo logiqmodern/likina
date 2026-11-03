@@ -86,7 +86,7 @@ async function Audit({ searchParams }: { searchParams: SearchParams }) {
         <EmptyState>{paging ? "Няма по-стари записи." : "Още няма записи."}</EmptyState>
       ) : (
         <Panel className="p-2 sm:p-3">
-          <ol className="flex flex-col divide-y divide-[#F1EBEF]" aria-label="Записи в одит лога">
+          <ol className="flex flex-col divide-y divide-[#F1ECE4]" aria-label="Записи в одит лога">
             {rows.map((r) => {
               const href = auditEntityHref(r.entity, r.entityId);
               const diff = formatDiff(r.diff);
@@ -128,7 +128,7 @@ async function Audit({ searchParams }: { searchParams: SearchParams }) {
                     </span>
                   </div>
                   {diff.length > 0 ? (
-                    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-0.5 rounded-lg bg-[#F7F5F6] px-3 py-2 text-[13px]">
+                    <dl className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-0.5 rounded-lg bg-[#F7F4EF] px-3 py-2 text-[13px]">
                       {diff.map((d) => (
                         <div key={d.key} className="contents">
                           <dt className="font-semibold text-muted">{d.key}</dt>

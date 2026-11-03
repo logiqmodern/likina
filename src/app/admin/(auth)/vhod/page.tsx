@@ -21,7 +21,7 @@ export default function LoginPage() {
         <h1 id="login-title" className="text-2xl font-extrabold tracking-[-0.01em]">
           Вход в админ панела
         </h1>
-        <p className="text-[15px] text-muted">Само за екипа на студиото.</p>
+        <p className="text-[15px] text-muted">Само за екипа на ателието.</p>
       </div>
       <LoginForm />
     </section>

@@ -52,11 +52,11 @@ export function SidebarNav({ keys, inquiryCount }: { keys: AdminSectionKey[]; in
                 href={s.href}
                 aria-current={isCurrent ? "page" : undefined}
                 className={`relative flex h-11 items-center gap-3 rounded-[10px] px-3 text-[15px] no-underline transition-colors ${
-                  isCurrent ? "bg-blush-100 font-bold text-ink" : "font-semibold text-ink-2 hover:bg-[#F7F5F6]"
+                  isCurrent ? "bg-tint-100 font-bold text-ink" : "font-semibold text-ink-2 hover:bg-[#F7F4EF]"
                 }`}
               >
                 {isCurrent ? (
-                  <span aria-hidden="true" className="absolute bottom-2 left-0 top-2 w-[3px] rounded-[3px] bg-pink" />
+                  <span aria-hidden="true" className="absolute bottom-2 left-0 top-2 w-[3px] rounded-[3px] bg-accent" />
                 ) : null}
                 <Icon />
                 {s.label}
@@ -103,14 +103,14 @@ export function MobileTabBar({
 
   const tabClass = (isCurrent: boolean) =>
     `relative flex min-h-[52px] flex-col items-center justify-center gap-0.5 rounded-xl text-xs no-underline ${
-      isCurrent ? "bg-blush-100 font-extrabold text-ink" : "font-bold text-muted"
+      isCurrent ? "bg-tint-100 font-extrabold text-ink" : "font-bold text-muted"
     }`;
 
   return (
     <>
       <nav
         aria-label="Основна навигация"
-        className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 gap-1 border-t border-[#ECE6EA] bg-white px-2 pt-1.5 shadow-[0_-6px_20px_rgba(43,26,38,0.06)] lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 gap-1 border-t border-[#E9E3DA] bg-white px-2 pt-1.5 shadow-[0_-6px_20px_rgba(42,31,26,0.06)] lg:hidden"
         style={{ paddingBottom: "max(10px, env(safe-area-inset-bottom))" }}
       >
         {tabs.map((s) => {
@@ -150,7 +150,7 @@ export function MobileTabBar({
           if (e.target === e.currentTarget) e.currentTarget.close();
         }}
       >
-        <div className="flex items-center justify-between gap-2 border-b border-[#ECE6EA] px-4 py-2">
+        <div className="flex items-center justify-between gap-2 border-b border-[#E9E3DA] px-4 py-2">
           <h2 id="admin-more-title" className="text-[17px] font-extrabold">
             Още
           </h2>
@@ -174,7 +174,7 @@ export function MobileTabBar({
                   aria-current={isCurrent ? "page" : undefined}
                   onClick={() => dialogRef.current?.close()}
                   className={`flex min-h-12 items-center gap-3 rounded-xl px-3 text-base no-underline ${
-                    isCurrent ? "bg-blush-100 font-bold" : "font-semibold text-ink-2"
+                    isCurrent ? "bg-tint-100 font-bold" : "font-semibold text-ink-2"
                   }`}
                 >
                   <Icon size={22} />
@@ -186,10 +186,10 @@ export function MobileTabBar({
           })}
         </ul>
         <div
-          className="flex items-center gap-3 border-t border-[#ECE6EA] px-4 pt-3"
+          className="flex items-center gap-3 border-t border-[#E9E3DA] px-4 pt-3"
           style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom))" }}
         >
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-blush-200">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-tint-200">
             <IconUser size={18} />
           </span>
           <span className="flex min-w-0 flex-1 flex-col leading-tight">
@@ -208,7 +208,7 @@ export function LogoutButton({ compact = false }: { compact?: boolean }) {
     <form action={logoutAction}>
       <button
         type="submit"
-        className={`flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#E0D6DC] bg-white text-sm font-bold text-ink hover:bg-[#F7F5F6] ${
+        className={`flex min-h-11 items-center justify-center gap-2 rounded-xl border border-[#E0D7CB] bg-white text-sm font-bold text-ink hover:bg-[#F7F4EF] ${
           compact ? "w-11" : "px-3"
         }`}
       >

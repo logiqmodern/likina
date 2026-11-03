@@ -92,12 +92,12 @@ export function PhotoPlaceholder({
     <div
       role="img"
       aria-label={`${label} (предстои)`}
-      className={`relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-[20px] bg-blush-100 p-4 text-center ${className}`}
+      className={`relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-[20px] bg-tint-100 p-4 text-center ${className}`}
     >
       {decorated ? (
         <>
-          <span aria-hidden="true" className="absolute -right-24 -top-28 h-64 w-64 rounded-full border border-blush-300" />
-          <span aria-hidden="true" className="absolute -bottom-20 -left-16 h-44 w-44 rounded-full border border-blush-300" />
+          <span aria-hidden="true" className="absolute -right-24 -top-28 h-64 w-64 rounded-full border border-tint-300" />
+          <span aria-hidden="true" className="absolute -bottom-20 -left-16 h-44 w-44 rounded-full border border-tint-300" />
         </>
       ) : null}
       <IconCamera size={28} className="text-muted" />
@@ -144,5 +144,5 @@ export function Price({
 
 /** Pulse placeholder with a fixed height so streamed content does not shift the layout. */
 export function Skeleton({ className = "" }: { className?: string }) {
-  return <div aria-hidden="true" className={`animate-pulse rounded-[20px] bg-blush-50 ${className}`} />;
+  return <div aria-hidden="true" className={`animate-pulse rounded-[20px] bg-tint-50 ${className}`} />;
 }

@@ -20,7 +20,7 @@ export function StudioEmail({ m }: { m: StudioEmailModel }) {
   return (
     <Layout
       preview={m.preview}
-      footer={<Text style={small}>Автоматично съобщение от системата за резервации.</Text>}
+      footer={<Text style={small}>Автоматично съобщение от сайта likina.com.</Text>}
     >
       <Heading>{m.heading}</Heading>
       {m.lines?.length ? <Paragraphs items={m.lines} /> : null}

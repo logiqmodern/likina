@@ -5,7 +5,7 @@ import { ImageResponse } from "next/og";
 /*
  * Social preview image (§11): brand template + the page title.
  * /og?t=<title> — used by cmsMetadata() for pages without a CMS image.
- * Colours: docs/DESIGN.md (ink on blush; never white text on pink).
+ * Colours: provisional Likina palette (ink on warm white, gold accent).
  */
 
 const FONT_DIR = path.join(process.cwd(), "src/assets/og-fonts");
@@ -29,7 +29,7 @@ async function fonts() {
 
 export async function GET(request: Request) {
   const raw = new URL(request.url).searchParams.get("t")?.trim() ?? "";
-  const title = (raw || "Студио за оформяне на тялото в София").slice(0, TITLE_MAX);
+  const title = (raw || "Ръчно рисувани икони и картини").slice(0, TITLE_MAX);
 
   return new ImageResponse(
     (
@@ -41,8 +41,8 @@ export async function GET(request: Request) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "64px 72px",
-          backgroundColor: "#FDF3F8",
-          color: "#2B1A26",
+          backgroundColor: "#F7F2EA",
+          color: "#2A1F1A",
           fontFamily: "Manrope",
         }}
       >
