@@ -10,6 +10,7 @@ test("health check answers ok", async ({ request }) => {
 test("home page renders", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await expect(page.getByRole("link", { name: "+359 899 857 525" })).toBeVisible();
 });
 
 test("admin without a session goes to the login page", async ({ page }) => {
