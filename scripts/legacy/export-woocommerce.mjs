@@ -47,10 +47,19 @@ await mkdir(join(out, "html", "en"), { recursive: true });
 
 const products = await paged("/wp-json/wc/store/v1/products");
 const categories = await paged("/wp-json/wc/store/v1/products/categories");
-const pages = await paged(
-  "/wp-json/wp/v2/pages?_fields=id,slug,link,title,content,status",
+// Pages/posts may be blocked for anonymous REST users (security plugin): non-fatal.
+const optional = async (path) => {
+  try {
+    return await paged(path);
+  } catch (e) {
+    console.warn(`skipped ${path}: ${e.message}`);
+    return [];
+  }
+};
+const pages = await optional(
+  "/wp-json/wp/v2/pages?_fields=id,slug,link,title,content",
 );
-const posts = await paged(
+const posts = await optional(
   "/wp-json/wp/v2/posts?_fields=id,slug,link,title,content,date",
 );
 await writeFile(join(out, "products.json"), JSON.stringify(products, null, 2));
