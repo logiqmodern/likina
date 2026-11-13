@@ -13,12 +13,12 @@ export default function GlobalNotFound() {
           <p className="text-sm font-bold uppercase tracking-[0.1em] text-muted">404</p>
           <h1 className="text-3xl font-extrabold">Страницата не е намерена</h1>
           <p className="text-ink-2">Адресът може да е стар или грешен.</p>
-          <Link href="/galeriya" className="btn btn-primary btn-lg">
-            Към галерията
+          <Link href="/magazin" className="btn btn-primary btn-lg">
+            Към магазина
           </Link>
           <p lang="en" className="text-ink-2">
-            Page not found. <Link href="/en/gallery" className="font-semibold underline underline-offset-4">
-              Go to the gallery
+            Page not found. <Link href="/en/shop" className="font-semibold underline underline-offset-4">
+              Go to the shop
             </Link>
           </p>
         </main>

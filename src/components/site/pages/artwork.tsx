@@ -3,11 +3,16 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { addToCart } from "@/app/_actions/cart";
 import { formatDimensions } from "@/domain/artwork-size";
+import { formatEur } from "@/domain/pricing";
 import { DEFAULT_SETTINGS } from "@/domain/settings";
 import { href, messages, pick, type Lang } from "@/i18n";
 import { mediaSrc } from "@/lib/media";
+import { absoluteUrl } from "@/components/site/seo";
+import { CATEGORY_COPY } from "@/content/categories";
+import { breadcrumbs, product } from "@/lib/structured-data";
 import { getArtwork, listArtists, listPublicArtworks } from "@/server/catalog";
 import { ArtworkGrid, Price } from "../artwork-card";
+import { JsonLd } from "../json-ld";
 import { SiteShell } from "../shell";
 
 /* The artwork page (§4.3) — the most important page. */
@@ -52,8 +57,50 @@ export async function ArtworkPage({ lang, slug }: { lang: Lang; slug: string }) 
     </Link>
   ) : null;
 
+  const card = all.find((x) => x.id === a.id);
+  const catSlug = card?.categorySlugs.find((c) => CATEGORY_COPY[c]);
+  const catName = catSlug ? CATEGORY_COPY[catSlug]![lang].name : null;
+  const path = href.artwork(lang, lang === "bg" ? a.slug : a.slugEn);
+  const plain = (description.text ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+
   return (
     <SiteShell lang={lang} alt={alt}>
+      <JsonLd
+        data={[
+          product({
+            name: title.text ?? a.titleBg,
+            description: plain.slice(0, 5000) || (title.text ?? ""),
+            path,
+            images: a.images.map((i) => absoluteUrl(mediaSrc(i.id))),
+            priceCents: a.priceCents,
+            status: a.status as "available" | "reserved" | "sold",
+            artist: artist ? (lang === "bg" ? artist.nameBg : artist.nameEn) : null,
+            category: catName,
+            material: [technique.text, materials.text].filter(Boolean).join("; ") || null,
+            widthMm: a.widthMm,
+            heightMm: a.heightMm,
+            kind: a.kind,
+          }),
+          breadcrumbs([
+            { name: messages[lang].nav.gallery, path: href.page(lang, "gallery") },
+            ...(catSlug && catName ? [{ name: catName, path: href.category(lang, catSlug) }] : []),
+            { name: title.text ?? a.titleBg, path },
+          ]),
+        ]}
+      />
+      <nav aria-label="Breadcrumb" className="container-site pt-5 text-[14px] text-ink-2">
+        <Link href={href.page(lang, "gallery")} className="link">
+          {messages[lang].nav.gallery}
+        </Link>
+        {catSlug && catName ? (
+          <>
+            {" / "}
+            <Link href={href.category(lang, catSlug)} className="link">
+              {catName}
+            </Link>
+          </>
+        ) : null}
+      </nav>
       <article className="container-site grid gap-8 py-6 pb-28 lg:grid-cols-[1.2fr_1fr] lg:gap-12 lg:py-10 lg:pb-10">
         <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto lg:flex-col lg:overflow-visible" aria-label={title.text ?? ""}>
           {a.images.map((img, i) => (
@@ -160,12 +207,27 @@ export async function ArtworkPage({ lang, slug }: { lang: Lang; slug: string }) 
 export async function artworkMetadata(lang: Lang, slug: string) {
   const a = await getArtwork(decodeURIComponent(slug));
   if (!a) return {};
-  const title = pick(lang, a.titleBg, a.titleEn).text ?? "";
-  const desc = (pick(lang, a.descriptionBg, a.descriptionEn).text ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().slice(0, 155);
+  const artist = (await listArtists()).find((x) => x.id === a.artistId);
+  const name = pick(lang, a.titleBg, a.titleEn).text ?? "";
+  const title = a.status === "available" && a.priceCents !== null ? `${name} — ${formatEurPlain(a.priceCents)}` : name;
+  const text = (pick(lang, a.descriptionBg, a.descriptionEn).text ?? "").replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const facts = [
+    artist ? (lang === "bg" ? `${a.kind === "print" ? "Арт принт" : "Оригинал"} от ${artist.nameBg}` : `${a.kind === "print" ? "Art print" : "Original"} by ${artist.nameEn}`) : null,
+    pick(lang, a.techniqueBg, a.techniqueEn).text,
+    formatDimensions(a, lang),
+    lang === "bg" ? "Безплатна доставка в България." : "Free delivery within Bulgaria.",
+  ].filter(Boolean);
+  const desc = (text ? `${text.slice(0, 110)}… ${facts.slice(-1)}` : facts.join(". ")).slice(0, 160);
   return {
     title,
-    description: desc || undefined,
+    description: desc,
     alternates: { canonical: href.artwork(lang, lang === "bg" ? a.slug : a.slugEn), languages: { bg: href.artwork("bg", a.slug), en: href.artwork("en", a.slugEn) } },
-    openGraph: a.images[0] ? { images: [{ url: mediaSrc(a.images[0].id), width: a.images[0].width, height: a.images[0].height }] } : undefined,
+    openGraph: a.images[0]
+      ? { type: "website" as const, siteName: "Likina", title, description: desc, images: [{ url: mediaSrc(a.images[0].id), width: a.images[0].width, height: a.images[0].height }] }
+      : undefined,
   };
+}
+
+function formatEurPlain(cents: number): string {
+  return formatEur(cents).replace(/\u00a0/g, " ");
 }

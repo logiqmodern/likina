@@ -16,13 +16,18 @@ export function Price({ lang, cents, compareAt }: { lang: Lang; cents: number | 
   );
 }
 
+const ARTIST_NAMES: Record<string, { bg: string; en: string }> = {
+  "gergana-nikiforova": { bg: "Гергана Никифорова", en: "Gergana Nikiforova" },
+  "rumen-bozhinov": { bg: "Румен Божинов", en: "Rumen Bozhinov" },
+};
+
 export function ArtworkCard({ lang, a, priority = false }: { lang: Lang; a: CardArtwork; priority?: boolean }) {
   const t = messages[lang].artwork;
   const title = pick(lang, a.titleBg, a.titleEn);
   const size = formatDimensions(a, lang);
   return (
     <Link href={href.artwork(lang, lang === "bg" ? a.slug : a.slugEn)} className="group flex h-full flex-col gap-3">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-tint-50">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white ring-1 ring-line transition-shadow group-hover:shadow-[0_18px_40px_-24px_rgba(42,31,26,0.5)]">
         {a.cover ? (
           <Image
             src={mediaSrc(a.cover.id)}
@@ -40,6 +45,7 @@ export function ArtworkCard({ lang, a, priority = false }: { lang: Lang; a: Card
         ) : null}
       </div>
       <div className="flex flex-col gap-1">
+        {a.artistSlug && ARTIST_NAMES[a.artistSlug] ? <p className="text-[13px] font-semibold uppercase tracking-[0.06em] text-muted">{ARTIST_NAMES[a.artistSlug]![lang]}</p> : null}
         <h3 lang={title.lang} className="text-[16px] font-bold leading-snug text-ink group-hover:underline group-hover:underline-offset-4">
           {title.text}
         </h3>

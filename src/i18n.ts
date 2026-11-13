@@ -16,7 +16,7 @@ export const CATEGORY_SLUGS = [
 
 const STATIC = {
   home: { bg: "/", en: "/en" },
-  gallery: { bg: "/galeriya", en: "/en/gallery" },
+  gallery: { bg: "/magazin", en: "/en/shop" },
   customIcon: { bg: "/ikona-po-porachka", en: "/en/custom-icon" },
   cart: { bg: "/kolichka", en: "/en/cart" },
   checkout: { bg: "/porachka", en: "/en/checkout" },
@@ -44,7 +44,7 @@ export const href = {
 
 const bg = {
   nav: {
-    gallery: "Галерия",
+    gallery: "Магазин",
     customIcon: "Икона по поръчка",
     about: "За нас",
     contact: "Контакти",
@@ -94,12 +94,13 @@ const bg = {
     ],
   },
   gallery: {
-    title: "Галерия",
-    lead: "Ръчно рисувани икони, картини със злато и арт принтове от ателие Ликина.",
+    title: "Магазин",
+    lead: "Оригинални ръчно рисувани икони, картини със злато и арт принтове. Безплатна доставка в България.",
     all: "Всички",
     available: "Само налични",
-    withSold: "И продадените",
+    withSold: "Покажи и продадените",
     artist: "Автор",
+    allArtists: "Всички автори",
     category: "Категория",
     count: (n: number) => (n === 1 ? "1 творба" : `${n} творби`),
     empty: "Няма творби с тези филтри.",
@@ -109,7 +110,7 @@ const bg = {
     eyebrow: "Семейно ателие · София",
     title: "Ръчно рисувани икони и картини със злато",
     lead: "Оригинални творби на Гергана Никифорова и Румен Божинов — темпера, левкас и злато, рисувани изцяло на ръка.",
-    ctaGallery: "Разгледайте галерията",
+    ctaGallery: "Към магазина",
     ctaCustom: "Икона по поръчка",
     categories: "Категории",
     available: (n: number) => (n === 1 ? "1 налична" : `${n} налични`),
@@ -221,8 +222,8 @@ const bg = {
   },
   notFound: {
     title: "Страницата не е намерена",
-    body: "Адресът може да е стар или грешен. Разгледайте творбите в галерията.",
-    cta: "Към галерията",
+    body: "Адресът може да е стар или грешен. Разгледайте творбите в магазина.",
+    cta: "Към магазина",
   },
 };
 
@@ -230,7 +231,7 @@ export type Messages = typeof bg;
 
 const en: Messages = {
   nav: {
-    gallery: "Gallery",
+    gallery: "Shop",
     customIcon: "Custom icon",
     about: "About",
     contact: "Contact",
@@ -280,12 +281,13 @@ const en: Messages = {
     ],
   },
   gallery: {
-    title: "Gallery",
-    lead: "Hand-painted icons, paintings with gold and art prints from the Likina atelier.",
+    title: "Shop",
+    lead: "Original hand-painted icons, paintings with gold and art prints. Free delivery within Bulgaria.",
     all: "All",
     available: "Available only",
-    withSold: "Including sold",
+    withSold: "Show sold works too",
     artist: "Artist",
+    allArtists: "All artists",
     category: "Category",
     count: (n: number) => (n === 1 ? "1 artwork" : `${n} artworks`),
     empty: "No artworks match these filters.",
@@ -295,7 +297,7 @@ const en: Messages = {
     eyebrow: "Family atelier · Sofia",
     title: "Hand-painted icons and paintings with gold",
     lead: "Original works by Gergana Nikiforova and Rumen Bozhinov — tempera, gesso and gold, painted entirely by hand.",
-    ctaGallery: "Browse the gallery",
+    ctaGallery: "Visit the shop",
     ctaCustom: "Custom icon",
     categories: "Categories",
     available: (n: number) => `${n} available`,
@@ -407,8 +409,8 @@ const en: Messages = {
   },
   notFound: {
     title: "Page not found",
-    body: "The address may be old or mistyped. Have a look at the gallery.",
-    cta: "Go to the gallery",
+    body: "The address may be old or mistyped. Have a look at the shop.",
+    cta: "Go to the shop",
   },
 };
 

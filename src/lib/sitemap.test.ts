@@ -1,10 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { SITEMAP_PATHS, sitemapPaths } from "./sitemap";
+import { NOINDEX_PATHS } from "./indexing";
+import { sitemapEntries } from "./sitemap";
 
-describe("sitemapPaths", () => {
-  it("lists the public pages, never the admin, checkout or order pages", () => {
-    const paths = sitemapPaths();
-    expect(paths).toEqual([...SITEMAP_PATHS]);
-    for (const p of paths) expect(p).not.toMatch(/^\/(en\/)?(admin|porachka|order|checkout|kolichka|cart)/);
+describe("sitemapEntries", () => {
+  const entries = sitemapEntries({
+    artworks: [{ slug: "sv-nikolay", slugEn: "st-nicholas", status: "available", publishedAt: new Date("2026-03-01") }],
+    artists: [{ slug: "gergana-nikiforova", slugEn: "gergana-nikiforova" }],
+  });
+
+  it("lists pages, categories, artists and artworks with their EN alternates", () => {
+    expect(entries).toContainEqual(expect.objectContaining({ bg: "/", en: "/en", priority: 1 }));
+    expect(entries).toContainEqual(expect.objectContaining({ bg: "/ikoni", en: "/en/icons" }));
+    expect(entries).toContainEqual(expect.objectContaining({ bg: "/tvorba/sv-nikolay", en: "/en/artwork/st-nicholas" }));
+    expect(entries).toContainEqual(expect.objectContaining({ bg: "/avtori/gergana-nikiforova" }));
+  });
+
+  it("never lists private pages", () => {
+    for (const e of entries) for (const p of NOINDEX_PATHS) expect(e.bg.startsWith(p) || e.en.startsWith(p)).toBe(false);
   });
 });

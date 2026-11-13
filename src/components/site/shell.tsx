@@ -75,6 +75,10 @@ export function SiteShell({ lang, alt, children }: { lang: Lang; alt: string; ch
       <a href="#main" className="sr-only-focusable absolute left-3 top-3 z-50 rounded-lg bg-white px-4 py-2 font-semibold">
         {t.nav.skip}
       </a>
+      <p className="bg-ink px-4 py-2 text-center text-[13px] font-semibold tracking-wide text-white">
+        {ANNOUNCEMENT[lang][0]}
+        <span className="hidden sm:inline"> · {ANNOUNCEMENT[lang][1]}</span>
+      </p>
       <header className="sticky top-0 z-40 border-b border-line bg-bg/95 backdrop-blur">
         <div className="container-site flex h-16 items-center justify-between gap-3">
           <Link href={href.page(lang, "home")} aria-label="Likina">
@@ -153,6 +157,11 @@ export function SiteShell({ lang, alt, children }: { lang: Lang; alt: string; ch
     </>
   );
 }
+
+const ANNOUNCEMENT = {
+  bg: ["Безплатна доставка в България", "Изпращане до 2–3 работни дни"],
+  en: ["Free delivery within Bulgaria", "Ships within 2–3 working days"],
+} as const;
 
 export const LEGAL_LABELS = {
   shipping: { bg: "Доставка и връщане", en: "Shipping and returns" },
