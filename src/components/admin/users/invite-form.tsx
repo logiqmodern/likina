@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { inviteUserAction } from "@/app/admin/_actions/users";
+import { inviteUserAction } from "@/app/(bg)/admin/_actions/users";
 import { Button, FormMessage, SelectField, TextField } from "@/components/admin/forms";
 import { useSubmitKeepingValues } from "@/components/admin/common/use-keep-values";
 

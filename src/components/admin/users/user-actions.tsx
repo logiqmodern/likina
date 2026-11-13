@@ -1,7 +1,7 @@
 "use client";
 
 import { type ReactNode, useState, useTransition } from "react";
-import { resetTotpAction, revokeInviteAction, setUserActiveAction } from "@/app/admin/_actions/users";
+import { resetTotpAction, revokeInviteAction, setUserActiveAction } from "@/app/(bg)/admin/_actions/users";
 import { Button } from "@/components/admin/forms";
 import type { ActionResult } from "@/server/admin/action-result";
 

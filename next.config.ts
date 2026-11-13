@@ -21,6 +21,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
   experimental: {
+    // Two root layouts (BG and EN) → app/global-not-found.tsx for unmatched URLs.
+    globalNotFound: true,
     // Media uploads (admin): the browser shrinks photos to ≤ 4 MB first (src/components/admin/media/downscale.ts).
     serverActions: { bodySizeLimit: "5mb" },
   },

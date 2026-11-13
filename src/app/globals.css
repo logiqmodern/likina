@@ -235,6 +235,42 @@
   }
 
   /* Surfaces */
+  .nav-link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .nav-link:hover {
+    background: var(--tint-50);
+  }
+  .prose-likina {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-2);
+  }
+  .prose-likina h2,
+  .prose-likina h3 {
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .prose-likina ul {
+    list-style: disc;
+    padding-left: 22px;
+  }
+  .prose-likina a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
   .card {
     background: #fff;
     border: 1px solid var(--line);

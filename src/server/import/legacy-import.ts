@@ -4,6 +4,7 @@ import { and, eq, inArray, sql } from "drizzle-orm";
 import type { Database } from "@/db/client";
 import { artists, artworkCategories, artworkImages, artworks, categories, media, priceHistory, reviews } from "@/db/schema";
 import { suggestSize } from "@/domain/artwork-size";
+import sharp from "sharp";
 import { slugify, uniqueSlug } from "@/lib/slug";
 import { optimizeImage } from "@/server/media";
 import { cleanLegacyText, combineLegacyTexts, toLines } from "./legacy-text";
@@ -155,14 +156,18 @@ export async function importLegacyCatalog(db: Database, catalog: LegacyCatalog, 
       mediaCache.set(img.id, existing.id);
       return existing.id;
     }
-    let file: Buffer;
+    let optimized: { data: Buffer; mime: string; width: number; height: number };
     try {
-      file = await readFile(path.join(opts.uploadsDir, img.file));
+      // data/legacy/images/<id>.webp is already optimized (committed for the Vercel build); else the original upload
+      const webp = await readFile(path.join(opts.uploadsDir, `${img.id}.webp`)).catch(() => null);
+      if (webp) {
+        const meta = await sharp(webp).metadata();
+        optimized = { data: webp, mime: "image/webp", width: meta.width ?? 0, height: meta.height ?? 0 };
+      } else optimized = await optimizeImage(await readFile(path.join(opts.uploadsDir, img.file)));
     } catch {
       report.images.missing.push(img.file);
       return null;
     }
-    const optimized = await optimizeImage(file);
     const [row] = await db
       .insert(media)
       .values({

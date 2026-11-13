@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useActionState, useState, useTransition } from "react";
-import { deleteMediaAction, updateMediaAction } from "@/app/admin/_actions/media";
+import { deleteMediaAction, updateMediaAction } from "@/app/(bg)/admin/_actions/media";
 import { Button, FormMessage, TextField } from "@/components/admin/forms";
 import { useSubmitKeepingValues } from "@/components/admin/common/use-keep-values";
 import { MediaThumb } from "./image-picker";

@@ -27,8 +27,7 @@ export type InquiryValidation =
   | { ok: true; spam: true }
   | { ok: false; errors: Partial<Record<InquiryField, string>>; values: Partial<Record<InquiryField, string>> };
 
-// BG texts („Вие“); the EN form gets its own messages with the i18n work in Phase 4.
-const REQUIRED_MESSAGES: Record<InquiryField, string> = {
+const REQUIRED_MESSAGES_BG: Record<InquiryField, string> = {
   name: "Въведете име",
   phone: "Въведете телефонен номер",
   email: "Въведете имейл",
@@ -39,44 +38,63 @@ const REQUIRED_MESSAGES: Record<InquiryField, string> = {
   artwork: "Изберете творба",
 };
 
-const INVALID_PHONE = "Въведете валиден телефонен номер";
-const INVALID_EMAIL = "Въведете валиден имейл адрес";
-const tooLong = (max: number) => `Най-много ${max} знака`;
+const REQUIRED_MESSAGES_EN: Record<InquiryField, string> = {
+  name: "Enter your name",
+  phone: "Enter a phone number",
+  email: "Enter your e-mail",
+  subject: "Describe the saint or image",
+  size: "Enter a size",
+  deadline: "Enter the timing",
+  message: "Write a message",
+  artwork: "Choose an artwork",
+};
+
+/** Error texts per page language (§6.2: errors in the language of the page). */
+const MESSAGES = {
+  bg: {
+    required: REQUIRED_MESSAGES_BG,
+    phone: "Въведете валиден телефонен номер",
+    email: "Въведете валиден имейл адрес",
+    tooLong: (max: number) => `Най-много ${max} знака`,
+  },
+  en: {
+    required: REQUIRED_MESSAGES_EN,
+    phone: "Enter a valid phone number",
+    email: "Enter a valid e-mail address",
+    tooLong: (max: number) => `At most ${max} characters`,
+  },
+} as const;
+type Lang = keyof typeof MESSAGES;
 
 const emailFormat = z.email();
 
 /** Schema for one field; input is always a (possibly empty) string. */
-function fieldSchema(field: InquiryField, required: boolean): z.ZodType<string> {
+function fieldSchema(field: InquiryField, required: boolean, lang: Lang): z.ZodType<string> {
+  const m = MESSAGES[lang];
   const max = INQUIRY_MAX_LENGTH[field];
   let s = z.string().trim();
-  if (required) s = s.min(1, { error: REQUIRED_MESSAGES[field] });
-  s = s.max(max, { error: tooLong(max) });
+  if (required) s = s.min(1, { error: m.required[field] });
+  s = s.max(max, { error: m.tooLong(max) });
 
   switch (field) {
     case "phone":
       return s
-        .refine((v) => v === "" || normalizePhone(v) !== null, { error: INVALID_PHONE })
+        .refine((v) => v === "" || normalizePhone(v) !== null, { error: m.phone })
         .transform((v) => (v === "" ? "" : (normalizePhone(v) ?? "")));
     case "email":
-      return s.refine((v) => v === "" || emailFormat.safeParse(v).success, { error: INVALID_EMAIL });
+      return s.refine((v) => v === "" || emailFormat.safeParse(v).success, { error: m.email });
     default:
       return s;
   }
 }
 
-function buildSchema(type: InquiryType) {
+function buildSchema(type: InquiryType, lang: Lang) {
   const shape: Partial<Record<InquiryField, z.ZodType<string>>> = {};
   for (const [field, rule] of Object.entries(INQUIRY_FIELD_RULES[type]) as Array<[InquiryField, "required" | "optional"]>) {
-    shape[field] = fieldSchema(field, rule === "required");
+    shape[field] = fieldSchema(field, rule === "required", lang);
   }
   return z.object(shape);
 }
-
-export const inquirySchemas: Record<InquiryType, ReturnType<typeof buildSchema>> = {
-  custom_icon: buildSchema("custom_icon"),
-  contact: buildSchema("contact"),
-  similar_artwork: buildSchema("similar_artwork"),
-};
 
 function read(input: InquiryInput, name: string): string {
   const raw = typeof input.get === "function" ? (input as { get(n: string): unknown }).get(name) : (input as Record<string, unknown>)[name];
@@ -84,17 +102,17 @@ function read(input: InquiryInput, name: string): string {
 }
 
 /**
- * Pure validation of an inquiry form (§4.4). Field errors are in Bulgarian.
+ * Pure validation of an inquiry form (§4.4). Field errors in the page language.
  * A filled honeypot is reported as spam: the caller answers with success and stores nothing.
  */
-export function validateInquiry(type: InquiryType, input: InquiryInput): InquiryValidation {
+export function validateInquiry(type: InquiryType, input: InquiryInput, lang: Lang = "bg"): InquiryValidation {
   if (read(input, HONEYPOT_FIELD).trim() !== "") return { ok: true, spam: true };
 
   const allowed = Object.keys(INQUIRY_FIELD_RULES[type]) as InquiryField[];
   const values: Partial<Record<InquiryField, string>> = {};
   for (const field of allowed) values[field] = read(input, field);
 
-  const result = inquirySchemas[type].safeParse(values);
+  const result = buildSchema(type, lang).safeParse(values);
   if (!result.success) {
     const errors: Partial<Record<InquiryField, string>> = {};
     for (const issue of result.error.issues) {

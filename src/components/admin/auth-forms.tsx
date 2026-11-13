@@ -7,7 +7,7 @@ import {
   confirmTotpSetupAction,
   loginAction,
   verifyMfaAction,
-} from "@/app/admin/_actions/auth";
+} from "@/app/(bg)/admin/_actions/auth";
 
 const INITIAL: AuthFormState = { status: "idle" };
 

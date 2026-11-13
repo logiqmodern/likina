@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { uploadMediaAction } from "@/app/admin/_actions/media";
+import { uploadMediaAction } from "@/app/(bg)/admin/_actions/media";
 import { Button, TextField } from "@/components/admin/forms";
 import { downscaleForUpload, UPLOAD_BODY_LIMIT } from "./downscale";
 import { formatBytes, MAX_UPLOAD_BYTES_CLIENT, MAX_UPLOAD_MB, type MediaOption } from "./types";

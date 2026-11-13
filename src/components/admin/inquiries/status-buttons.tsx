@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { setInquiryStatusAction } from "@/app/admin/_actions/inquiries";
+import { setInquiryStatusAction } from "@/app/(bg)/admin/_actions/inquiries";
 import { FormMessage } from "@/components/admin/forms";
 
 type Status = "new" | "in_progress" | "done";

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { logoutAction } from "@/app/admin/_actions/auth";
+import { logoutAction } from "@/app/(bg)/admin/_actions/auth";
 import {
   ADMIN_SECTIONS,
   type AdminSection,

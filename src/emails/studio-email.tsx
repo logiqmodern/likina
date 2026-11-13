@@ -14,13 +14,15 @@ export interface StudioEmailModel {
   /** e.g. the day's appointments */
   list?: { title: string; items: Array<{ time: string; text: string; note?: string }>; empty: string };
   link?: { label: string; url: string };
+  /** footer line (default: the BG "automatic message" note) */
+  footer?: string;
 }
 
 export function StudioEmail({ m }: { m: StudioEmailModel }) {
   return (
     <Layout
       preview={m.preview}
-      footer={<Text style={small}>Автоматично съобщение от сайта likina.com.</Text>}
+      footer={<Text style={small}>{m.footer ?? "Автоматично съобщение от сайта likina.com."}</Text>}
     >
       <Heading>{m.heading}</Heading>
       {m.lines?.length ? <Paragraphs items={m.lines} /> : null}

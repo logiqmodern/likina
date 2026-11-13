@@ -17,7 +17,7 @@
     "db:studio": "drizzle-kit studio",
     "check": "npm run lint && npm run typecheck && npm test",
     "db:seed": "tsx scripts/seed.ts",
-    "vercel-build": "npm run db:migrate && npm run db:seed && next build",
+    "vercel-build": "npm run db:migrate && npm run db:seed && tsx scripts/import-legacy.ts --if-empty && tsx scripts/translate-missing.ts && next build",
     "e2e": "tsx e2e/prepare.ts && playwright test"
   },
   "dependencies": {

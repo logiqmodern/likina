@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useActionState, useId } from "react";
-import { type AcceptInviteState, acceptInviteAction } from "@/app/admin/_actions/users";
+import { type AcceptInviteState, acceptInviteAction } from "@/app/(bg)/admin/_actions/users";
 
 const INITIAL: AcceptInviteState = { status: "idle" };
 
