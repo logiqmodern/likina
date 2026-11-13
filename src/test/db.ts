@@ -14,7 +14,8 @@ export function createTestDb(): { db: Database; pool: Pool } {
 
 export async function resetDb(db: Database): Promise<void> {
   await db.execute(sql`
-    TRUNCATE consent_records, funnel_counts, email_messages, email_templates, content_items, media, admin_invites,
+    TRUNCATE payments, order_items, orders, order_counters, price_history, artwork_images, artwork_categories,
+             artworks, categories, artists, reviews, consent_records, funnel_counts, email_messages, email_templates, content_items, media, admin_invites,
              inquiries, audit_log, settings, rate_limits
     RESTART IDENTITY CASCADE
   `);

@@ -13,7 +13,9 @@ export default async function DashboardPage() {
     <>
       <PageHeader title="Добре дошли" description="Тук ще виждате новите поръчки, чакащите изпращане и запитванията." />
       <Panel className="p-5">
-        <p className="text-[15px] text-ink-2">Творбите и поръчките се появяват тук след импорта от стария сайт.</p>
+        <p className="text-[15px] text-ink-2">
+          Творбите от стария сайт вече са в раздел „Творби“. Поръчките ще се появяват тук, когато магазинът тръгне.
+        </p>
       </Panel>
     </>
   );

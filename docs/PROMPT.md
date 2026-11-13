@@ -226,7 +226,7 @@ URL-ите са на латиница: BG без префикс, EN под `/en`
 
 `pending_payment` → `paid` → `shipped` → `delivered` → `completed`
 
-`cod_confirmed` (наложен платеж) → `shipped` → `delivered` (парите са получени) → `completed`
+`confirmed` (наложен платеж или плащане в ателието; в спецификацията беше `cod_confirmed`, вж. ADR 0002) → `shipped` → `delivered` (парите са получени) → `completed`
 
 Странични статуси: `payment_failed`, `cancelled`, `returned`, `refunded`.
 
@@ -234,10 +234,10 @@ URL-ите са на латиница: BG без префикс, EN под `/en`
 
 ### 5.3 Защита от двойна продажба (уникати)
 - При „Плати с карта“ творбите в поръчката минават в `reserved` за 15 мин (настройка). Това става в транзакция със `SELECT … FOR UPDATE`; ако творба вече не е `available`, поръчката не се създава и купувачът вижда ясно съобщение.
-- Частичен уникален индекс: една и съща оригинална творба не може да е в две поръчки със статус ∈ {`pending_payment`, `paid`, `cod_confirmed`, `shipped`, `delivered`, `completed`}.
+- Частичен уникален индекс: една и съща оригинална творба не може да е в две поръчки със статус ∈ {`pending_payment`, `paid`, `confirmed`, `shipped`, `delivered`, `completed`}.
 - Успешно плащане → `sold`.
 - Изтекло или отказано плащане → worker-ът връща творбата в `available`, а поръчката в `payment_failed`. Купувачът получава имейл с линк „опитай пак“, ако творбата е още налична.
-- При наложен платеж поръчката е `cod_confirmed` веднага, а творбата е `sold` (отказ/връщане → `available` от админа).
+- При наложен платеж поръчката е `confirmed` веднага, а творбата е `sold` (отказ → `available`; върната пратка → `hidden`, за проверка).
 - Принтове: `stock` се намалява атомарно; при 0 → изчерпан.
 - Тест: 20 паралелни опита за една творба → точно 1 успех.
 - Количката не резервира. Ако творба в количката се продаде, количката я маркира и не позволява checkout с нея.
@@ -354,7 +354,7 @@ URL-ите са на латиница: BG без префикс, EN под `/en`
 | `begin_checkout` | отворен checkout | e-commerce | InitiateCheckout |
 | `add_shipping_info` | избрана доставка | e-commerce | — |
 | `add_payment_info` | избран начин на плащане | e-commerce | AddPaymentInfo |
-| `purchase` | `paid` (карта, от сървъра след notify) или `cod_confirmed` | **key event**, value, items | Purchase + CAPI |
+| `purchase` | `paid` (карта, от сървъра след notify) или `confirmed` | **key event**, value, items | Purchase + CAPI |
 | `payment_failed` | неуспешно/изтекло плащане | event | — |
 | `inquiry_submitted` | икона по поръчка / контакт / „поръчай подобна“ | key event | Lead |
 | `view_on_wall` | отворен „Виж на стената“ | event | — |

@@ -26,11 +26,11 @@ export function isWellFormedToken(token: string): boolean {
  * AES-256-GCM, key = HKDF-SHA256(SESSION_SECRET) with its own label, stored as
  * "iv.tag.ciphertext" (base64url).
  */
-const TOKEN_BOX_INFO = "reducta/manage-token-box/v1";
+const TOKEN_BOX_INFO = "likina/manage-token-box/v1";
 
 export function deriveTokenBoxKey(secret: string): Buffer {
   if (secret.length < 32) throw new Error("secret must be at least 32 characters");
-  return Buffer.from(hkdfSync("sha256", secret, "reducta", TOKEN_BOX_INFO, 32));
+  return Buffer.from(hkdfSync("sha256", secret, "likina", TOKEN_BOX_INFO, 32));
 }
 
 export function sealToken(token: string, key: Buffer): string {
