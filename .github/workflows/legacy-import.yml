@@ -1,7 +1,7 @@
 name: Legacy import (catalogue → Neon)
 
 # Imports the old likina.com catalogue (data/legacy/catalog.json + the original
-# images from the cPanel backup, stored as the release asset "legacy-uploads")
+# images from the cPanel backup, kept on the orphan branch "legacy-uploads")
 # into the production database. Idempotent: running it again changes nothing.
 # Run manually: Actions → Legacy import → Run workflow.
 on:
@@ -23,18 +23,17 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Download the original images
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release download legacy-uploads --pattern uploads.tar --dir /tmp
-          mkdir -p /tmp/uploads && tar -xf /tmp/uploads.tar -C /tmp/uploads
+      - name: Original images
+        uses: actions/checkout@v4
+        with:
+          ref: legacy-uploads
+          path: legacy-uploads
       - name: Import
         env:
           DATABASE_URL: ${{ secrets.IMPORT_DATABASE_URL }}
         run: |
           npx tsx scripts/import-legacy.ts \
-            --uploads /tmp/uploads/public_html/wp-content/uploads \
+            --uploads legacy-uploads/uploads \
             --report import-report.md \
             ${{ inputs.overwrite && '--overwrite' || '' }}
       - uses: actions/upload-artifact@v4
