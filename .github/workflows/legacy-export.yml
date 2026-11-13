@@ -1,0 +1,29 @@
+name: Legacy export (likina.com)
+
+# One-off backup of the old WordPress shop before the Superhosting account expires.
+# Run manually (Actions → Legacy export → Run workflow); the result is a 90-day artifact.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      [
+        scripts/legacy/export-woocommerce.mjs,
+        .github/workflows/legacy-export.yml,
+      ]
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node scripts/legacy/export-woocommerce.mjs legacy-export
+      - uses: actions/upload-artifact@v4
+        with:
+          name: likina-legacy-export
+          path: legacy-export
+          retention-days: 90
