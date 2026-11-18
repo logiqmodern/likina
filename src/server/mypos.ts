@@ -22,7 +22,8 @@ export interface MyposConfig {
   url: string;
 }
 
-const URLS = { test: "https://www.mypos.com/vmp/checkout-test", production: "https://www.mypos.com/vmp/checkout" } as const;
+// the endpoints the old WordPress plugin used with this account
+const URLS = { test: "https://mypos.com/vmp/checkout-test", production: "https://mypos.com/vmp/checkout" } as const;
 
 export function myposConfig(env: Record<string, string | undefined> = process.env): MyposConfig | null {
   const pack = env.MYPOS_CONFIG_PACK?.trim();
@@ -94,8 +95,8 @@ export function purchaseFields(
     ["URL_Notify", urls.notify],
     ["CardTokenRequest", "0"],
     ["KeyIndex", cfg.keyIndex],
-    ["PaymentParametersRequired", "2"],
-    ["customeremail", order.email],
+    // 3 = no customer details on the myPOS page (as the old plugin was set up); we already have them
+    ["PaymentParametersRequired", "3"],
     ["CartItems", "1"],
     ["Article_1", `Likina ${order.number}`],
     ["Quantity_1", "1"],

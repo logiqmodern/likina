@@ -6,7 +6,6 @@ import { FORM_ERROR_KEY, INQUIRY_TYPE_FIELD, isInquiryType, type InquiryFormStat
 import { deliverSoon } from "@/server/email/kick";
 import { saveInquiry, validateInquiry } from "@/server/inquiries";
 import { hitRateLimit, RATE_LIMITS } from "@/server/rate-limit";
-import { notifyTelegram } from "@/server/telegram";
 import { verifyTurnstile } from "@/server/turnstile";
 
 const FAIL = {
@@ -24,7 +23,6 @@ const FAIL = {
   },
 } as const;
 
-const TELEGRAM_TITLES = { custom_icon: "Икона по поръчка", contact: "Контакт", similar_artwork: "Подобна творба" } as const;
 
 /** Inquiry forms (contact, custom icon, "order a similar one") — use with `useActionState`. */
 export async function submitInquiry(_prev: InquiryFormState, formData: FormData): Promise<InquiryFormState> {
@@ -46,7 +44,6 @@ export async function submitInquiry(_prev: InquiryFormState, formData: FormData)
   try {
     const saved = await saveInquiry(getDb(), type, result.data);
     deliverSoon(saved.emailIds);
-    notifyTelegram(`📨 Ново запитване (${TELEGRAM_TITLES[type]}): ${values.name ?? ""}${values.subject ? ` — ${values.subject}` : ""}${values.artwork ? ` — ${values.artwork}` : ""}`);
   } catch (error) {
     console.error("inquiry: save failed", { type, error });
     return { status: "error", errors: { [FORM_ERROR_KEY]: fail.save }, values };

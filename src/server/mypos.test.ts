@@ -12,7 +12,7 @@ const cfg: MyposConfig = {
   privateKey: pem(ours.privateKey, "pkcs1"),
   myposCert: pem(theirs.publicKey, "spki"),
   keyIndex: "1",
-  url: "https://www.mypos.com/vmp/checkout-test",
+  url: "https://mypos.com/vmp/checkout-test",
 };
 
 describe("myPOS signature (IPC v1.4)", () => {
@@ -61,7 +61,7 @@ describe("myPOS signature (IPC v1.4)", () => {
     expect(amountToCents("abc")).toBeNull();
     expect(myposConfig({})).toBeNull();
     const pack = Buffer.from(JSON.stringify({ sid: "1", cn: "2", pk: "k", pc: "c", idx: "1" })).toString("base64");
-    expect(myposConfig({ MYPOS_CONFIG_PACK: pack, MYPOS_MODE: "production" })).toMatchObject({ sid: "1", walletNumber: "2", url: "https://www.mypos.com/vmp/checkout" });
+    expect(myposConfig({ MYPOS_CONFIG_PACK: pack, MYPOS_MODE: "production" })).toMatchObject({ sid: "1", walletNumber: "2", url: "https://mypos.com/vmp/checkout" });
     expect(myposConfig({ MYPOS_CONFIG_PACK: "not-a-pack" })).toBeNull();
   });
 });
